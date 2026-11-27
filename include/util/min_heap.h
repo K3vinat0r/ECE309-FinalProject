@@ -1,22 +1,10 @@
-// include/util/min_heap.h
-//
-// YOU IMPLEMENT (this whole file; it is a template, so the code lives in the
-// header). Spec §4.1.
-//
-// A binary MIN-heap stored in an array (a std::vector), plus top_k(), which
-// uses a size-k min-heap to pick the k largest items in O(n log k).
-//
-// Rules for this file:
-//   * Write sift-up and sift-down yourself.
-//   * Do NOT use std::priority_queue, std::make_heap / push_heap / pop_heap /
-//     sort_heap, std::sort / stable_sort / partial_sort / nth_element, or
-//     std::set / multiset / map / multimap (full list: spec §7.3).
-//   * std::vector is fine as the storage array; std::swap, std::reverse and
-//     std::pair are fine too.
-//
-// `Less` is a "less-than" function object, exactly like the one std::sort
-// takes: less(a, b) is true when a should come before b. The heap keeps the
-// SMALLEST element (by less) at the top.
+/**
+ * File: min_heap.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 25, 2026
+ * Description: a binary tree where parent nodes are smaller than their child nodes
+ */
 
 #pragma once
 #include <algorithm>
