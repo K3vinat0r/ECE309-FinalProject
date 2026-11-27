@@ -43,6 +43,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstdlib>      // rand
+#include <algorithm>    // std::sort, std::reverse
 
 // =========================================================================
 // Memory — 4 examples
@@ -192,5 +194,47 @@ TEST(index_ranking_and_ties) {
 // =========================================================================
 // Your tests (at least 12 more). Spec §8 lists what they must cover.
 // =========================================================================
+
+/**
+ * File Tested: min_heap.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: test if an empty heap throws an exception
+ */
+TEST(heap_throwsIfEmpty) {
+    MinHeap<int> emptyHeap;
+    CHECK_THROWS(emptyHeap.top(), std::out_of_range);
+    CHECK_THROWS(emptyHeap.pop(), std::out_of_range);
+}
+
+/**
+ * File Tested: min_heap.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: test if function top_k() works with different k values and random numbers
+ */
+TEST(heap_topKWorks) {
+    std::vector<int> list = {1, -1, 0};
+    CHECK_EQ(top_k(list, 1), (std::vector<int>{1}));        // k < list
+    CHECK_EQ(top_k(list, 5), (std::vector<int>{1, 0, -1})); // k > list
+    CHECK_EQ(top_k(list, 0), (std::vector<int>{}));         // k = 0
+
+    // write 100 random numbers (index 0 - 99)
+    std::vector<int> randomNumbers;
+    for (int i = 0; i < 100; i++) {
+        randomNumbers.push_back(rand());
+    }
+
+    std::vector<int> sortedNumbers = randomNumbers;             // copy of randomNumbers but sorted
+    std::sort(sortedNumbers.begin(), sortedNumbers.end());      // smallest -> largest
+    std::reverse(sortedNumbers.begin(), sortedNumbers.end());   // largest -> smallest
+
+    sortedNumbers.resize(10);                   // size array to first ten
+    randomNumbers = top_k(randomNumbers, 10);   // take top ten with top_k
+
+    CHECK_EQ(randomNumbers, sortedNumbers);
+}
 
 int main(int argc, char** argv) { return mt::run_all(argc, argv); }
