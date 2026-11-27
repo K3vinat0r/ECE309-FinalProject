@@ -12,6 +12,9 @@
 
 ## 2. Heap and top_k
 <!-- Why is top_k O(n log k)? One measurement against a full sort. -->
+heap_topKTimings: 100k random numbers tested at run time with k = 10
+top_k() = 0.138 ms
+std::sort() = 8.087 ms
 
 ## 3. BST height
 <!-- Your printed heights for ids 1..1000 inserted in order vs. shuffled.

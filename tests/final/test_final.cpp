@@ -45,6 +45,7 @@
 #include <vector>
 #include <cstdlib>      // rand
 #include <algorithm>    // std::sort, std::reverse
+#include <chrono>       // std::chrono::steady_clock, std::chrono::duration
 
 // =========================================================================
 // Memory — 4 examples
@@ -235,6 +236,34 @@ TEST(heap_topKWorks) {
     randomNumbers = top_k(randomNumbers, 10);   // take top ten with top_k
 
     CHECK_EQ(randomNumbers, sortedNumbers);
+}
+
+/**
+ * File Tested: min_heap.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: prints the time of top_k() vs std::sort
+ */
+TEST (heap_topKTimings) {
+    // write 100k random numbers
+    std::vector<int> largeList;
+    for (int i = 0; i < 100000; i++) {
+        largeList.push_back(rand());
+    }
+    std::vector<int> largeList2 = largeList;                // copy for top_k
+
+    auto startTime = std::chrono::steady_clock::now();      // start time
+    std::sort(largeList.begin(), largeList.end());
+    auto sortEndTime = std::chrono::steady_clock::now();    // sortEndTime - startTime = time elapsed for sort()
+    top_k(largeList2, 10);
+    auto topKEndTime = std::chrono::steady_clock::now();    // topKEndTime - sortEndTime = time elapsed for top_k()
+
+    // milliseconds each one took
+    std::chrono::duration<double, std::milli> sortTime = sortEndTime - startTime;
+    std::chrono::duration<double, std::milli> topKTime = topKEndTime - sortEndTime;
+    std::printf("top_k():     %.3f ms\n", topKTime.count());
+    std::printf("std::sort(): %.3f ms\n", sortTime.count());
 }
 
 int main(int argc, char** argv) { return mt::run_all(argc, argv); }
