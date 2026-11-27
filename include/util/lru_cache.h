@@ -118,14 +118,74 @@ private:
         Node* prev;
         Node* next;
     };
+    
+    /**
+     * Function: unlink(node)
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: removes given node from a linked list
+     */
+    void unlink(Node* node) {
+        // if node->prev exists
+        if (node->prev != nullptr) {
+            node->prev->next = node->next;      // prev->next skips over node
+        } else {
+            head_ = node->next;                 // else, reassign head to node->next
+        }
 
-    // ===== YOUR HELPERS AND MEMBERS =====
-    // Suggested helpers: unlink(Node*), push_front(Node*), move_to_front(Node*).
-    // Clue for unlink(n): four cases. If n has a prev, prev->next skips n,
-    // otherwise n was head_ and head_ moves to n->next. Likewise, if n has
-    // a next, next->prev skips n, otherwise n was tail_ and tail_ moves to
-    // n->prev. Unlinking the only node leaves head_ == tail_ == nullptr.
-    // Spec Appendix B lists every pointer write.
+        // if node->next exists
+        if (node->next != nullptr) {
+            node->next->prev = node->prev;      // next->prev skips over node
+        } else {
+            tail_ = node->prev;                 // else, reassign tail to node->prev
+        }
+    }
+
+    /**
+     * Function: pushFront(node)
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: insert given node as the new head node
+     */
+    void pushFront(Node* node) {
+        // empty list
+        if (head_ == nullptr) {
+            head_ = node;           // node become head and tail
+            tail_ = node;
+            node->prev = nullptr;   // node points to nothing
+            node->next = nullptr;
+        }
+        
+        // non-empty list
+        else {
+            node->next = head_;     // node points to head
+            head_->prev = node;     // head points to node; creates doubly link
+            head_ = node;           // reassign head to different node
+            node->prev = nullptr;   // node doesn't point to prev
+        }
+    }
+
+    /**
+     * Function: moveToFront(node)
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: moves a node in a list to the head
+     */
+    void moveToFront(Node* node) {
+        // return if node is already the head
+        if (head_ == node) {
+            return;
+        }
+
+        // else, unlink then push front
+        else {
+            unlink(node);
+            pushFront(node);
+        }
+    }
 
     std::unordered_map<Key, Node*, Hash> map_;
     Node*       head_ = nullptr;
