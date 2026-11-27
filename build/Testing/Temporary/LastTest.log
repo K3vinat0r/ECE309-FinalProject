@@ -1,0 +1,235 @@
+Start testing: Nov 26 21:16 EST
+----------------------------------------------------------
+1/4 Testing: p2_regression
+1/4 Test: p2_regression
+Command: "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/test_p2"
+Directory: /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build
+"p2_regression" start time: Nov 26 21:16 EST
+Output:
+----------------------------------------------------------
+[PASS] conv_empty
+[PASS] conv_append_and_order
+[PASS] conv_holds_tool_role
+[PASS] conv_range_for
+[PASS] conv_copy_is_deep
+[PASS] conv_move_steals
+[PASS] scan_clean_text
+[PASS] scan_every_split
+[PASS] scan_one_byte_at_a_time
+[PASS] scan_false_alarm
+[PASS] harness_turn_limit
+[PASS] harness_eof
+[PASS] harness_sentinel_halts_and_is_hidden
+[PASS] harness_transcript_round_trip
+
+---- summary ----
+  conv           6 /   6
+  harness        4 /   4
+  scan           4 /   4
+  TOTAL         14 /  14
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"p2_regression" end time: Nov 26 21:16 EST
+"p2_regression" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/4 Testing: p3_tool_loop
+2/4 Test: p3_tool_loop
+Command: "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/test_loop"
+Directory: /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build
+"p3_tool_loop" start time: Nov 26 21:16 EST
+Output:
+----------------------------------------------------------
+[PASS] loop_model_tool_model_without_user_turn
+[PASS] loop_escape_attempt_is_an_error_not_a_crash
+[PASS] loop_chained_tool_rounds
+[PASS] loop_tool_step_limit
+[PASS] loop_without_registry_is_p2_behavior
+[PASS] loop_sentinel_wins_over_tool_call
+[PASS] loop_client_error
+[PASS] loop_system_message_lists_tools
+[PASS] loop_transcript_round_trip_with_tools
+
+---- summary ----
+  loop           9 /   9
+  TOTAL          9 /   9
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"p3_tool_loop" end time: Nov 26 21:16 EST
+"p3_tool_loop" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/4 Testing: final
+3/4 Test: final
+Command: "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/test_final"
+Directory: /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build
+"final" start time: Nov 26 21:16 EST
+Output:
+----------------------------------------------------------
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:55: failed: h.size() == std::size_t{5}
+        left:  0
+        right: 5
+    uncaught exception: MinHeap::top not implemented
+[FAIL] heap_pops_in_order
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:68: failed: c.get("a") != nullptr
+[FAIL] lru_evicts_least_recently_used
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:80: failed: t.insert(MemoryRecord{id, "m" + std::to_string(id)})
+[FAIL] bst_remove_two_children
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:103: failed: p.keep == (std::vector<std::size_t>{0, 1, 4, 6, 7})
+        left:  {}
+        right: {0, 1, 4, 6, 7}
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:104: failed: p.total_tokens == std::size_t{50}
+        left:  0
+        right: 50
+[FAIL] ctx_spec_example
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:119: failed: p.evaluate(req).kind == Decision::Kind::Allow
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:121: failed: p.evaluate(req).kind == Decision::Kind::Allow
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:125: failed: p.evaluate(req).kind == Decision::Kind::Allow
+[FAIL] pol_rate_limit_window_boundary
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:135: failed: chain.add(std::make_unique<FixedPolicy>(Decision::Kind::Allow, "ok"))
+[FAIL] pol_chain_first_deny_stops_first_ask_wins
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:170: failed: g.order_from("a", &order, &error)
+[FAIL] graph_order_and_cycle_message
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:186: failed: ix.search("csv table numbers", 10) == (std::vector<std::size_t>{1, 0, 2})
+        left:  {}
+        right: {1, 0, 2}
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:187: failed: ix.search("format table", 1) == (std::vector<std::size_t>{2})
+        left:  {}
+        right: {2}
+    /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/final/test_final.cpp:188: failed: ix.postings("numbers") != nullptr
+[FAIL] index_ranking_and_ties
+
+---- summary ----
+  bst            0 /   1
+  ctx            0 /   1
+  graph          0 /   1
+  heap           0 /   1
+  index          0 /   1
+  lru            0 /   1
+  pol            0 /   2
+  TOTAL          0 /   8
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Failed.
+"final" end time: Nov 26 21:16 EST
+"final" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/4 Testing: e2e
+4/4 Test: e2e
+Command: "/usr/bin/bash" "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/e2e/run_e2e.sh" "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/miniharness"
+Directory: /mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject
+"e2e" start time: Nov 26 21:16 EST
+Output:
+----------------------------------------------------------
+[FAIL] e2e_context_demo
+--- "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/e2e/expected/context_demo.out"	2026-11-21 22:51:51.943704200 -0500
++++ /tmp/tmp.K1Iyip5Ipp/context_demo.out	2026-11-26 21:16:15.847455040 -0500
+@@ -1,11 +1,13 @@
+-you> assistant> Loading the style rules.<|tool_call|>{"id":"c1","name":"load_skill","arguments":{"name":"cpp-style"}}<|/tool_call|>
+-[tool load_skill c1 -> ok] Loaded 1 skill (dependencies first): cpp-style\n\n## cpp-sty...
++you> [context: sent 0 of 2 messages, 0 tokens]
++assistant> Loading the style rules.<|tool_call|>{"id":"c1","name":"load_skill","arguments":{"name":"cpp-style"}}<|/tool_call|>
++[tool load_skill c1 -> error] not implemented
++[context: sent 0 of 4 messages, 0 tokens]
+ assistant> Got the style rules; they stay pinned in context.
+-you> [context: sent 5 of 6 messages, 1406 tokens]
++you> [context: sent 0 of 6 messages, 0 tokens]
+ assistant> Here is a long answer about move constructors: they steal the buffer, set the source pointer to null, and leave the source empty but valid, so its destructor does nothing harmful.
+-you> [context: sent 7 of 8 messages, 1446 tokens]
++you> [context: sent 0 of 8 messages, 0 tokens]
+ assistant> Copy assignment must handle self-assignment and free the old buffer only after the new copy succeeds.
+-you> [context: sent 7 of 10 messages, 1421 tokens]
++you> [context: sent 0 of 10 messages, 0 tokens]
+ assistant> Goodbye!
+ [conversation ended: Stop sentinel detected]
+ [exit 0]
+[PASS] e2e_escape_attempt
+[PASS] e2e_greeting
+[PASS] e2e_malformed_calls
+[FAIL] e2e_memory_demo
+--- "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/e2e/expected/memory_demo.out"	2026-11-21 22:51:51.909722700 -0500
++++ /tmp/tmp.K1Iyip5Ipp/memory_demo.out	2026-11-26 21:16:17.779454568 -0500
+@@ -4,12 +4,12 @@
+ [tool remember m3 -> ok] remembered m3
+ assistant> Saved three memories.
+ you> assistant> Let me check.<|tool_call|>{"id":"r1","name":"recall","arguments":{"query":"when is the demo","k":2}}<|/tool_call|>
+-[tool recall r1 -> ok] m3: The demo needs a laptop with WSL\nm1: Project demo is on...
++[tool recall r1 -> ok] no matching memories
+ assistant> The demo is on Dec 3 in EB2, and you need a laptop with WSL.
+ you> assistant> Forgetting it.<|tool_call|>{"id":"f1","name":"forget","arguments":{"id":"m2"}}<|/tool_call|><|tool_call|>{"id":"f2","name":"forget","arguments":{"id":"m9"}}<|/tool_call|><|tool_call|>{"id":"l1","name":"list_memories","arguments":{}}<|/tool_call|>
+-[tool forget f1 -> ok] forgot m2
++[tool forget f1 -> error] <reason>
+ [tool forget f2 -> error] <reason>
+-[tool list_memories l1 -> ok] m1: Project demo is on Dec 3 in EB2\nm3: The demo needs a la...
++[tool list_memories l1 -> ok] no memories
+ assistant> Done. Two memories remain.
+ you> assistant> Goodbye!
+ [conversation ended: Stop sentinel detected]
+[FAIL] e2e_policy_demo
+--- "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/e2e/expected/policy_demo.out"	2026-11-21 22:51:51.938777900 -0500
++++ /tmp/tmp.K1Iyip5Ipp/policy_demo.out	2026-11-26 21:16:18.183454471 -0500
+@@ -1,17 +1,17 @@
+ you> assistant> Listing files.<|tool_call|>{"id":"p1","name":"run_command","arguments":{"program":"ls","args":["-l"]}}<|/tool_call|>
+-[tool run_command p1 -> ok] [simulated] $ ls -l\n(exit 0; commands are simulated, nothin...
++[tool run_command p1 -> error] <reason>
+ assistant> Here is the listing (simulated).
+ you> assistant> Trying the risky ones.<|tool_call|>{"id":"p2","name":"run_command","arguments":{"program":"rm","args":["-r","build"]}}<|/tool_call|><|tool_call|>{"id":"p3","name":"run_command","arguments":{"program":"cat","args":["notes.txt;","rm","x"]}}<|/tool_call|>
+ [tool run_command p2 -> error] <reason>
+ [tool run_command p3 -> error] <reason>
+ assistant> Both were blocked.
+ you> assistant> Checking git.<|tool_call|>{"id":"p4","name":"run_command","arguments":{"program":"git","args":["status"]}}<|/tool_call|><|tool_call|>{"id":"p5","name":"run_command","arguments":{"program":"make","args":["clean"]}}<|/tool_call|>
+-[confirm] Run `git status`? (y/n) [confirm] Run `make clean`? (y/n) [tool run_command p4 -> ok] [simulated] $ git status\n(exit 0; commands are simulated, n...
++[tool run_command p4 -> error] <reason>
+ [tool run_command p5 -> error] <reason>
+ assistant> git status ran; you declined make clean.
+ you> assistant> A few quick checks.<|tool_call|>{"id":"p6","name":"run_command","arguments":{"program":"echo","args":["hi"]}}<|/tool_call|><|tool_call|>{"id":"p7","name":"run_command","arguments":{"program":"wc","args":["-l","notes.txt"]}}<|/tool_call|><|tool_call|>{"id":"p8","name":"run_command","arguments":{"program":"head","args":["notes.txt"]}}<|/tool_call|>
+-[tool run_command p6 -> ok] [simulated] $ echo hi\n(exit 0; commands are simulated, noth...
+-[tool run_command p7 -> ok] [simulated] $ wc -l notes.txt\n(exit 0; commands are simulat...
++[tool run_command p6 -> error] <reason>
++[tool run_command p7 -> error] <reason>
+ [tool run_command p8 -> error] <reason>
+ assistant> The third check hit the rate limit (5 commands per minute).
+ you> assistant> Goodbye!
+[PASS] e2e_runaway
+[FAIL] e2e_skills_demo
+--- "/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/tests/e2e/expected/skills_demo.out"	2026-11-21 22:51:51.924100800 -0500
++++ /tmp/tmp.K1Iyip5Ipp/skills_demo.out	2026-11-26 21:16:19.131454240 -0500
+@@ -1,13 +1,13 @@
+ you> assistant> Searching.<|tool_call|>{"id":"s1","name":"list_skills","arguments":{"query":"csv report table"}}<|/tool_call|>
+-[tool list_skills s1 -> ok] csv-report: Turn a CSV of sales rows into a formatted summar...
++[tool list_skills s1 -> ok] no skills match 'csv report table'
+ assistant> csv-report fits best. Loading it.<|tool_call|>{"id":"s2","name":"load_skill","arguments":{"name":"csv-report"}}<|/tool_call|>
+-[tool load_skill s2 -> ok] Loaded 4 skills (dependencies first): read-csv, number-forma...
++[tool load_skill s2 -> error] not implemented
+ assistant> I have the steps for the report.
+ you> assistant> Checking.<|tool_call|>{"id":"s3","name":"skill_dependents","arguments":{"name":"number-format"}}<|/tool_call|><|tool_call|>{"id":"s4","name":"load_skill","arguments":{"name":"draft-intro"}}<|/tool_call|><|tool_call|>{"id":"s5","name":"load_skill","arguments":{"name":"release-notes"}}<|/tool_call|><|tool_call|>{"id":"s6","name":"load_skill","arguments":{"name":"csv-report"}}<|/tool_call|>
+-[tool skill_dependents s3 -> ok] depend on number-format: csv-report table-format
+-[tool load_skill s4 -> error] cycle: draft-intro -> draft-outline -> draft-intro
+-[tool load_skill s5 -> error] missing: changelog-format (required by release-notes)
+-[tool load_skill s6 -> ok] Loaded 4 skills (dependencies first): read-csv, number-forma...
++[tool skill_dependents s3 -> ok] nothing depends on number-format
++[tool load_skill s4 -> error] not implemented
++[tool load_skill s5 -> error] not implemented
++[tool load_skill s6 -> error] not implemented
+ assistant> Two skills are broken: draft-intro has a cycle and release-notes needs a missing skill.
+ you> assistant> Goodbye!
+ [conversation ended: Stop sentinel detected]
+[PASS] e2e_split_test
+[PASS] e2e_tools_demo
+[PASS] e2e_tools_list
+e2e: 7 / 11 passed
+<end of output>
+Test time =   5.22 sec
+----------------------------------------------------------
+Test Failed.
+"e2e" end time: Nov 26 21:16 EST
+"e2e" time elapsed: 00:00:05
+----------------------------------------------------------
+
+End testing: Nov 26 21:16 EST

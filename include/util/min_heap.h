@@ -31,31 +31,51 @@ class MinHeap {
 public:
     explicit MinHeap(Less less = Less()) : less_(std::move(less)) {}
 
-    // Adds value. O(log n).
+    /**
+     * Function: push(value)
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 26, 2026
+     * Description: push a new node into the right spot in a tree
+     */
     void push(T value) {
-        // TODO: append to data_, then sift the new element up.
-        // Clue: compare with less_(a, b), never a < b. Some element types
-        // (e.g. the provided memory_store.cpp's Scored struct) have no
-        // operator<, and a min-heap of std::greater must still work.
-        (void)value;
+        data_.push_back(std::move(value));      // add new node to the bottom of the tree
+        siftUp(data_.size() - 1);               // sift up to the correct spot in the tree
     }
 
-    // The smallest element. Throws std::out_of_range if empty. O(1).
+    /**
+     * Function: top()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 26, 2026
+     * Description: return root node of the tree unless empty
+     */
     const T& top() const {
-        // TODO
-        throw std::out_of_range("MinHeap::top not implemented");
+        // empty tree
+        if (empty()){
+            throw std::out_of_range("MinHeap::top heap is empty");
+        }
+        return data_[0];                        // root node
     }
-
-    // Removes and returns the smallest element. Throws std::out_of_range if
-    // empty. O(log n).
+    
+    /**
+     * Function: pop()
+     *
+     * Author: Kevin Aroche Rios
+     * Date: November 26, 2026
+     * Description: removes the root node and then fixes tree
+     */
     T pop() {
-        // TODO: save the root, move the last element to the root, shrink,
-        // sift down, return the saved root.
-        // Clue: check empty() first. With one element, there is no "last
-        // element" to move: just take it and pop_back().
-        // Clue: T result = std::move(data_[0]); then move the last element
-        // into slot 0 (moving avoids copying big strings).
-        throw std::out_of_range("MinHeap::pop not implemented");
+        T root = top();                 // use top() to find root
+        data_.front() = data_.back();   // last node temporarily replaces the root node
+        data_.pop_back();               // remove last node
+
+        // move temp root node down the tree to its correct spot
+        if (!empty()){
+            siftDown(0);
+        }
+
+        return root;
     }
 
     std::size_t size() const noexcept { return data_.size(); }
@@ -63,14 +83,51 @@ public:
     void        clear() noexcept { data_.clear(); }
 
 private:
-    // ===== YOUR HELPERS AND MEMBERS =====
-    // Children of index i are 2i+1 and 2i+2; its parent is (i-1)/2.
-    // Suggested: void sift_up(std::size_t i);  void sift_down(std::size_t i);
-    // Clue: use std::size_t (not int) for indices, or -Wsign-compare warns
-    // every time you compare with data_.size(). Careful: (i-1)/2 with i == 0
-    // underflows, so sift_up must stop at i == 0.
-    // Clue: in sift_down, the right child may not exist: check
-    // 2*i+2 < data_.size() before reading it. Swap with the SMALLER child.
+    /**
+     * Function: siftUp()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 26, 2026
+     * Description: sift a node up the tree to its correct spot
+     */
+    void siftUp(std::size_t i) {
+        while (i > 0) {                     // stop at the root
+            std::size_t parentIndex = (i - 1) / 2;
+
+            // check if the child node should be above the parent
+            if (!less_(data_[i], data_[parentIndex])) { break; }
+
+            std::swap(data_[parentIndex], data_[i]);
+            i = parentIndex;                // repeat at the new index
+        }
+    }
+
+    /**
+     * Function: siftDown()
+     *
+     * Author: Kevin Aroche Rios
+     * Date: November 26, 2026
+     * Description: sift a node down the tree to its correct spot
+     */
+    void siftDown(std::size_t i) {
+        for (;;) {
+            std::size_t leftChildIndex = 2*i + 1, rightChildIndex = leftChildIndex + 1, smallestChildIndex = i;
+
+            // if the left child is smaller than the current smallest, set index to it
+            if (leftChildIndex < data_.size() && less_(data_[leftChildIndex], data_[smallestChildIndex])){
+                smallestChildIndex = leftChildIndex;
+            }
+            // if the right child is smaller than the current smallest, set index to it
+            if (rightChildIndex < data_.size() && less_(data_[rightChildIndex], data_[smallestChildIndex])){
+                smallestChildIndex = rightChildIndex;
+            }
+            // stop when no more smaller nodes are encountered
+            if (smallestChildIndex == i) break;
+            
+            std::swap(data_[i], data_[smallestChildIndex]);     // swap node with smaller node
+            i = smallestChildIndex;                             // follow the node to its new index
+        }
+    }
 
     std::vector<T> data_;
     Less           less_;
