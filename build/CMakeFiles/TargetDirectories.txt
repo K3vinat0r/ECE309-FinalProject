@@ -1,8 +1,0 @@
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/harness_core.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/miniharness.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/test_p2.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/test_loop.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/test_final.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/test.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/aroch/OneDrive - North Carolina State University/Courses/Fall 2026/ECE 309/Programs/ECE309-FinalProject/ECE309-FinalProject/build/CMakeFiles/rebuild_cache.dir
