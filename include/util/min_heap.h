@@ -57,7 +57,7 @@ public:
         }
         return data_[0];                        // root node
     }
-    
+
     /**
      * Function: pop()
      *
@@ -133,30 +133,46 @@ private:
     Less           less_;
 };
 
-// Returns the k LARGEST items of `items` (by `less`), largest first.
-//   * k == 0 or items empty -> empty result
-//   * k >= items.size()     -> every item, largest first
-// Must keep a MinHeap of at most k items (the k largest seen so far, with
-// the smallest of them on top), so it runs in O(n log k) time and O(k) extra
-// space. Items that compare equal may come out in any order.
+/**
+ * Function: top_k(items, k, less)
+ *
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: find k largest items using a tree
+ */
 template <typename T, typename Less = std::less<T>>
 std::vector<T> top_k(const std::vector<T>& items, std::size_t k, Less less = Less()) {
-    // TODO: keep a MinHeap<T, Less> of at most k items. For each item: if
-    // the heap has fewer than k items, push it; otherwise, if the heap's top
-    // is less than the item, pop the top and push the item. At the end, pop
-    // everything (smallest first) and return it reversed.
-    //
-    // Clues:
-    //  * k == 0: return {} BEFORE the loop (top() on an empty heap throws).
-    //  * Build the heap WITH the comparator:  MinHeap<T, Less> heap(less);
-    //    Writing  MinHeap<T, Less> heap;  fails for lambdas ("use of deleted
-    //    function ... lambda") because a lambda can't be default-constructed.
-    //  * "top is less than the item" means  less(heap.top(), item),  not
-    //    heap.top() < item.  Read less(a, b) as "a is WORSE than b": the heap
-    //    keeps the k best items with the worst of them on top.
-    //  * std::reverse (from <algorithm>) flips a vector.
-    (void)items;
-    (void)k;
-    (void)less;
-    return {};
+    // nothing to return and empty heap throws
+    if (k == 0 || items.empty()) { return {}; }
+
+    MinHeap<T, Less> heap(less);
+
+    // check through every item
+    for (std::size_t i = 0; i < items.size(); i++) {
+        const T & currentItem = items[i];
+
+        // size the tree to k nodes
+        if (heap.size() < k) {
+            heap.push(currentItem);     // new node added
+            continue;                   // move on to next item
+        }
+
+        // top/root node is less than the current item
+        if (less(heap.top(), currentItem)) {
+            heap.pop();                 // remove root node
+            heap.push(currentItem);     // add larger item
+        }
+    }
+
+    std::vector<T> largestItems;
+
+    // empty tree into largestItems
+    while (!heap.empty()) {
+        largestItems.push_back(heap.pop());
+    }
+
+    // flip order from smallest -> largest to largest -> smallest
+    std::reverse(largestItems.begin(), largestItems.end());
+
+    return largestItems;
 }
