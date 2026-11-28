@@ -288,4 +288,26 @@ TEST (lru_putExistingKey) {
     CHECK_EQ(cache.stats().evictions, std::size_t{0});                      // nothing removed
 }
 
+/**
+ * File Tested: lru_cache.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: test if caches with a capacity of 0 and 1
+ *              will hold the right item
+ */
+TEST (lru_capacity) {
+    LruCache<std::string, int> emptyCache(0);   // cache w/ capacity of 0
+    emptyCache.put("K", 1);
+    CHECK(emptyCache.size() == 0);              // check size haven't changed
+    CHECK(!emptyCache.contains("K"));           // check empty cache doesn't hold anything
+
+    LruCache<std::string, int> singleCache(1);  // cache w/ capacity of 1
+    singleCache.put("A", 1);
+    singleCache.put("R", 2);
+    CHECK(singleCache.size() == 1);             // check size haven't changed
+    CHECK(singleCache.contains("R")             // check cache holds most recently used item
+      && !singleCache.contains("A"));           // and removed least recently used item
+}
+
 int main(int argc, char** argv) { return mt::run_all(argc, argv); }
