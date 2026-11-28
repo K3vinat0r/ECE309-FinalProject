@@ -266,4 +266,26 @@ TEST (heap_topKTimings) {
     std::printf("std::sort(): %.3f ms\n", sortTime.count());
 }
 
+/**
+ * File Tested: lru_cache.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: test if putting a key that already exists
+ *              would update its value without evicting it
+ */
+TEST (lru_putExistingKey) {
+    // create full cache w/ size 5
+    LruCache<std::string, int> cache(5);
+    cache.put("K", 1), cache.put("E", 2), cache.put("V", 3),
+    cache.put("I", 4), cache.put("N", 5);
+
+    cache.put("K", 11);                                                     // put "K" w/ new value
+    std::vector<std::string> keys = cache.keys_mru_to_lru();                // keys from head to tail
+
+    CHECK_EQ(keys, (std::vector<std::string>{"K", "N", "I", "V", "E"}));    // "K" now most recently used
+    CHECK_EQ(*cache.get("K"), 11);                                          // check if "K" holds new value
+    CHECK_EQ(cache.stats().evictions, std::size_t{0});                      // nothing removed
+}
+
 int main(int argc, char** argv) { return mt::run_all(argc, argv); }
