@@ -1,22 +1,11 @@
-// include/util/lru_cache.h
-//
-// YOU IMPLEMENT (this whole file; it is a template). Spec §4.2.
-//
-// A fixed-capacity cache that evicts the Least Recently Used entry.
-// Both get() and put() must be O(1) (expected), so it is built from two
-// structures that point at the same nodes:
-//
-//   std::unordered_map<Key, Node*>   finds a key's node in O(1)
-//   a doubly linked list of Nodes    keeps recency order:
-//        head_ = most recently used ... tail_ = least recently used
-//
-// Rules for this file:
-//   * Write the doubly linked list yourself (Node with prev/next pointers,
-//     new/delete inside this class only). Do NOT use std::list, std::deque
-//     or std::forward_list (don't even #include their headers), or a
-//     std::vector you shift around (spec §7.3).
-//   * std::unordered_map is allowed (and expected) for the key -> Node* index.
-//   * No leaks, no double frees: ASan runs on every test.
+/**
+ * File: lru_cache.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: a cache that removes the least recently used (lru)
+ * entry in it when full
+ */
 
 #pragma once
 #include <cstddef>
@@ -102,29 +91,61 @@ public:
         map_[key] = newNode;                                                // save in to the map
     }
 
-    // True if the key is cached. Does NOT change recency or stats.
+    /**
+     * Function: contains()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: search if a key is in the cache
+     */
     bool contains(const Key& key) const {
-        // TODO
-        // Clue: this function is const, so map_[key] does not even compile
-        // ("discards qualifiers"). Use map_.find(key) != map_.end() or
-        // map_.count(key).
-        (void)key;
-        return false;
+        // key was found/cached
+        if(auto findKey = map_.find(key); findKey != map_.end()) {
+            return true;
+        }
+
+        return false;   // key was not found
     }
 
-    // Removes the key if present (not an eviction). Returns whether it was.
+    /**
+     * Function: erase()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: removes key if found in the cache
+     */
     bool erase(const Key& key) {
-        // TODO
-        (void)key;
-        return false;
+        // key was found/cached
+        if (auto findKey = map_.find(key); findKey != map_.end()) {
+            Node* oldNode = findKey->second;    // node to be removed
+            unlink(oldNode);                    // remove the key's node
+            map_.erase(findKey);                // remove key from the map
+            delete oldNode;                     // free node
+            return true;
+        }
+
+        return false;   // key was not found
     }
 
-    // Removes every entry. Stats are kept.
+    /**
+     * Function: clear()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: clears cache
+     */
     void clear() {
-        // TODO: delete every node, empty the map, reset head_/tail_.
-        // Clue: save n->next in a local BEFORE  delete n;  a loop like
-        //   for (Node* n = head_; n; n = n->next) delete n;
-        // reads n->next from freed memory.
+        Node* nextNode = nullptr;   // holds next node
+
+        // iterate through the list of nodes and delete each one
+        for (Node* node = head_; node; node = nextNode) {
+            nextNode = node->next;  // next node reassigned
+            delete node;            // delete current node
+        }
+
+        map_.clear();               // clear map
+        head_ = nullptr;            // set head and tail as null
+        tail_ = nullptr;
     }
 
     std::size_t size() const noexcept { return map_.size(); }
