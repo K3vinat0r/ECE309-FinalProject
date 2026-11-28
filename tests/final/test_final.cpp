@@ -331,4 +331,29 @@ TEST (lru_countsHitsAndMisses) {
     CHECK_EQ(cache.stats().evictions, std::size_t{1});
 }
 
+/**
+ * File Tested: lru_cache.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 28, 2026
+ * Description: test if erasing nodes from the head, middle, tail would still be in the right order
+ */
+TEST (lru_eraseHeadMiddleTail) {
+    LruCache<std::string, int> cache(7);                                                            // cache "RALEIGH"
+    cache.put("H", 6), cache.put("G", 5), cache.put("I", 4), cache.put("E", 3),
+    cache.put("L", 2), cache.put("A", 1), cache.put("R", 0);
+
+    cache.erase("R");                                                                               // erase head
+    CHECK_EQ(cache.keys_mru_to_lru(), (std::vector<std::string>{"A", "L", "E", "I", "G", "H"}));
+
+    cache.erase("H");                                                                               // erase tail
+    CHECK_EQ(cache.keys_mru_to_lru(), (std::vector<std::string>{"A", "L", "E", "I", "G"}));
+
+    cache.erase("E");                                                                               // erase middle
+    CHECK_EQ(cache.keys_mru_to_lru(), (std::vector<std::string>{"A", "L", "I", "G"}));
+
+    cache.erase("I");                                                                               // erase random node
+    CHECK_EQ(cache.keys_mru_to_lru(), (std::vector<std::string>{"A", "L", "G"}));
+}
+
 int main(int argc, char** argv) { return mt::run_all(argc, argv); }
