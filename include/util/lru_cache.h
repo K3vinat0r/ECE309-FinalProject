@@ -45,17 +45,29 @@ public:
     LruCache(const LruCache&) = delete;
     LruCache& operator=(const LruCache&) = delete;
 
-    // Hit: marks the entry most recently used, counts a hit, and returns a
-    //      pointer to its value (valid until the next put/erase/clear).
-    // Miss: counts a miss and returns nullptr.
+    /**
+     * Function: get()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: search for a key in a linked list; return pointer to its 
+     * value if found or nullptr if not found
+     */
     const Value* get(const Key& key) {
-        // TODO
-        // Clue: look keys up with  auto it = map_.find(key);  and compare
-        // with map_.end(). Do NOT use map_[key] to look up: on a miss it
-        // INSERTS the key (with a nullptr node), size() grows, and a later
-        // put() crashes far away from the real bug.
-        (void)key;
-        return nullptr;
+        auto findKey = map_.find(key);      // search for key
+
+        // key is present in the cache
+        if (findKey != map_.end()) {
+            moveToFront(findKey->second);   // now most recently used, so move to the front
+            stats_.hits++;                  // counter for keys found +1
+            return &findKey->second->value; // return key's value
+        }
+
+        // key isn't present; return nullptr
+        else {
+            stats_.misses++;                // counter for keys not found +1
+            return nullptr;
+        }
     }
 
     /**
@@ -82,7 +94,7 @@ public:
             unlink(victim);                 // remove from the list
             map_.erase(victim->key);        // remove key from the map
             delete victim;                  // free the victim
-            stats_.evictions++;             // eviction count
+            stats_.evictions++;             // counter for keys removed +1
         }
 
         Node* newNode = new Node{key, std::move(value), nullptr, nullptr};  // new node
