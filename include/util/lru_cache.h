@@ -58,20 +58,36 @@ public:
         return nullptr;
     }
 
-    // Key present: replaces its value and marks it most recently used (no
-    //   eviction, no hit/miss counted).
-    // Key absent: if the cache is full, evicts the least recently used entry
-    //   (counting one eviction), then inserts the new entry as most recently
-    //   used. With capacity 0, does nothing.
+    /**
+     * Function: put()
+     * 
+     * Author: Kevin Aroche Rios
+     * Date: November 27, 2026
+     * Description: puts a new node into the map or updates an existing node
+     */
     void put(const Key& key, Value value) {
-        // TODO
-        // Clue (eviction): victim = tail_; unlink it; erase victim->key from
-        // the map; THEN delete victim. Reading victim->key after delete is a
-        // heap-use-after-free (ASan may show it as a SEGV inside hashtable
-        // code: look for the first stack frame in lru_cache.h).
-        // Clue: create nodes with  new Node{key, std::move(value), nullptr, nullptr}.
-        (void)key;
-        (void)value;
+        // zero capacity, so nothing can be put
+        if (capacity_ == 0) { return; }
+
+        // key is present in the cache
+        if (auto findKey = map_.find(key); findKey != map_.end()) {
+            findKey->second->value = value; // change the nodes value
+            moveToFront(findKey->second);   // now most recently used, so move to the front
+            return;
+        }
+
+        // cache is full
+        if (map_.size() == capacity_) {
+            Node* victim = tail_;           // least recently used
+            unlink(victim);                 // remove from the list
+            map_.erase(victim->key);        // remove key from the map
+            delete victim;                  // free the victim
+            stats_.evictions++;             // eviction count
+        }
+
+        Node* newNode = new Node{key, std::move(value), nullptr, nullptr};  // new node
+        pushFront(newNode);                                                 // move new node to the front
+        map_[key] = newNode;                                                // save in to the map
     }
 
     // True if the key is cached. Does NOT change recency or stats.
