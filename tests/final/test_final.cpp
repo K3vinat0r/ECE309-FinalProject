@@ -310,4 +310,25 @@ TEST (lru_capacity) {
       && !singleCache.contains("A"));           // and removed least recently used item
 }
 
+/**
+ * File Tested: lru_cache.h
+ * 
+ * Author: Kevin Aroche Rios
+ * Date: November 27, 2026
+ * Description: test if hits, misses, and evictions are counted properly
+ */
+TEST (lru_countsHitsAndMisses) {
+    LruCache<std::string, int> cache(4);
+    cache.put("U", 7), cache.put("S", 8), cache.put("C", 8), cache.put("N", 1);
+
+    cache.get("S");                                         // hit - "S" is cached
+    CHECK_EQ(cache.stats().hits, std::size_t{1});
+
+    cache.get("D");                                         // miss - "D" isn't cached
+    CHECK_EQ(cache.stats().misses, std::size_t{1});
+
+    cache.put("A", 1);                                      // eviction - "A" is entered and "U" is evicted
+    CHECK_EQ(cache.stats().evictions, std::size_t{1});
+}
+
 int main(int argc, char** argv) { return mt::run_all(argc, argv); }
